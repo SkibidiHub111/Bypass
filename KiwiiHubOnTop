@@ -294,7 +294,7 @@ local function startLawRaid()
                 if hum and hum.Health > 0 then
                     local myHP = hum.Health
                     local bossPos = boss.HumanoidRootPart.Position
-                    if myHP <= 1000 then
+                    if myHP <= 2000 then
                         tweenTo(Vector3.new(bossPos.X, 500, bossPos.Z))
                     elseif myHP > 8000 then
                         tweenTo(boss.HumanoidRootPart.Position + Vector3.new(0,15,0))
