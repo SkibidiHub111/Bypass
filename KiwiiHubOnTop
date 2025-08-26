@@ -275,7 +275,7 @@ local function startLawRaid()
         while getgenv().AutoCyborg["Enable"] do
             task.wait(0.5)
 
-            if LocalPlayer.Backpack:FindFirstChild("Core Brain") or LocalPlayer.Character:FindFirstChild("Lõi") then
+            if LocalPlayer.Backpack:FindFirstChild("Core Brain") or LocalPlayer.Character:FindFirstChild("Core Brain") then
                 fireclickdetector(btn) task.wait(0.2) fireclickdetector(btn)
                 UpdateStatus("Got Core Brain, done all", Color3.fromRGB(0,255,0))
                 sendWebhook("Got Core Brain, done all")
@@ -289,10 +289,20 @@ local function startLawRaid()
                     break
                 end
             end
+
             if boss and boss:FindFirstChild("HumanoidRootPart") then
-                local hum = getChar():FindFirstChild("Humanoid")
-                if hum and hum.Health > 0 then
-                    getHRP().CFrame = boss.HumanoidRootPart.CFrame * CFrame.new(0,15,0)
+                local hrp = getHRP()
+                local myHum = getChar():FindFirstChild("Humanoid")
+                if myHum then
+                    local myHP = myHum.Health
+                    if myHP <= 1000 then
+                        local bossPos = boss.HumanoidRootPart.Position
+                        hrp.CFrame = CFrame.new(bossPos.X, 500, bossPos.Z)
+                    elseif myHP > 8000 then
+                        hrp.CFrame = boss.HumanoidRootPart.CFrame * CFrame.new(0, 15, 0)
+                    else
+                        hrp.CFrame = boss.HumanoidRootPart.CFrame * CFrame.new(0, 25, 0)
+                    end
                 end
             end
         end
